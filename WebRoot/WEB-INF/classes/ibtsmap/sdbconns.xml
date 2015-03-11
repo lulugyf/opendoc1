@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap 
+	PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="sdbconns">
+	<typeAlias alias="DBConn" type="com.sitech.rom.rpt.bo.DBConn" />
+	<typeAlias alias="DBType" type="com.sitech.rom.rpt.bo.DBType" />
+	<typeAlias alias="QueryAll" type="com.sitech.rom.rpt.bo.QueryAll" />
+	<typeAlias alias="RomSysPopedom" type="com.sitech.rom.common.dto.RomSysPopedom" />
+
+	
+	<sql id="where-dbconns">
+		<dynamic prepend=" WHERE ">
+			<isGreaterThan property="order_id" compareValue="0">
+			order_id=#order_id#
+			</isGreaterThan>
+			<isPropertyAvailable property="serv_ip" prepend="and">
+				<isNotNull property="serv_ip">
+					<isNotEmpty property="serv_ip">
+						serv_ip = #serv_ip#
+					</isNotEmpty>
+				</isNotNull>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="serv_name" prepend="and">
+				<isNotNull property="serv_name">
+					<isNotEmpty property="serv_name">
+						serv_name = #serv_name#
+					</isNotEmpty>
+				</isNotNull>
+			</isPropertyAvailable>
+		<isPropertyAvailable property="serv_user" prepend="and">
+			<isNotNull property="serv_user">
+				<isNotEmpty property="serv_user">
+					serv_user = #serv_user#
+				</isNotEmpty>
+			</isNotNull>
+		</isPropertyAvailable>
+		<isPropertyAvailable property="db_type" prepend="and">
+			<isNotNull property="db_type">
+				<isNotEmpty property="db_type">
+					db_type = #db_type#
+				</isNotEmpty>
+			</isNotNull>
+		</isPropertyAvailable>
+		<isPropertyAvailable property="db_name" prepend="and">
+			<isNotNull property="db_name">
+				<isNotEmpty property="db_name">
+					db_name = #db_name#
+				</isNotEmpty>
+			</isNotNull>
+		</isPropertyAvailable>
+		<isPropertyAvailable property="db_port" prepend="and">
+			<isGreaterThan property="db_port" compareValue="0">
+			db_port=#db_port#
+			</isGreaterThan>
+		</isPropertyAvailable>
+		<isPropertyAvailable property="db_user" prepend="and">
+			<isNotNull property="db_user">
+				<isNotEmpty property="db_user">
+					db_user = #db_user#
+				</isNotEmpty>
+			</isNotNull>
+		</isPropertyAvailable>
+	  </dynamic>
+	</sql>
+
+	<select id="qryConns" parameterClass="DBConn"
+		resultClass="DBConn">
+		select
+		order_id, serv_ip, serv_name, serv_user, serv_pwd, db_type, db_name,db_port,db_user,db_pwd,data_dir
+		from etl_host_msg
+		<include refid="where-dbconns"/>
+		order by serv_ip, serv_user
+	</select>
+	
+	<insert id="insertConns" parameterClass="DBConn">
+		INSERT INTO etl_host_msg (
+		order_id,
+		serv_ip,
+		serv_name,
+		serv_user,
+		serv_pwd,
+		db_type,
+		db_name,
+		db_port,
+		db_user,
+		db_pwd,
+		data_dir
+		) VALUES (
+		#order_id#,
+		#serv_ip#,
+		#serv_name#,
+		#serv_user#,
+		#serv_pwd#,
+		#db_type#,
+		#db_name#,
+		#db_port#,
+		#db_user#,
+		#db_pwd#,
+		#data_dir#
+		)
+	</insert>
+	
+	<update id="updateDBConn" parameterClass="DBConn">
+		update etl_host_msg set
+		  serv_ip=#serv_ip#, serv_name=#serv_name#, serv_user=#serv_user#, serv_pwd=#serv_pwd#, db_type=#db_type#, 
+		  db_name=#db_name#,db_port=#db_port#, db_user=#db_user#, db_pwd=#db_pwd#, data_dir=#data_dir#
+		WHERE order_id = #order_id#
+	</update>
+	
+	<delete id="deleteConns" parameterClass="java.lang.String">
+		DELETE FROM etl_host_msg
+		WHERE order_id = #order_id#
+	</delete>
+	
+	<select id="qryDBTypes" resultClass="DBType">
+	select dbtype from t_dbtypes
+	</select>
+	
+	<select id="select_test"
+	parameterClass="QueryAll"
+	 resultClass="RomSysPopedom">
+	SELECT
+		FUNCTION_CODE AS functionCode,
+		ACTION_NAME AS actionName,
+		OPERATION_CODE AS operationCode	
+	FROM ROM_SYS_POPEDOM 
+	<dynamic >
+		<isNotNull property="query">
+	 where action_name like #query#
+		or function_code like #query#
+		</isNotNull>
+	</dynamic>
+	</select>
+	
+</sqlMap>

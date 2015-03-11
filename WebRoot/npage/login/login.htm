@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>登陆</title>
+<link rel="shortcut icon" type="image/x-icon" href="../../xpage/images/logo.ico" media="screen" />
+<link rel="stylesheet" type="text/css" href="../../style/conf_style.css"/>
+<script type="text/javascript" src="../../js/jquery.min.js"></script>
+<script>  
+//加载时适应浏览器高度
+$(document).ready(function() {
+    //模块尺寸  
+	$('.redtree').css('height', $(window).height() - 0); 
+})
+//改变窗体大小时适应浏览器高度
+$(window).resize(function() {
+    //模块尺寸
+	$('.redtree').css('height', $(window).height() - 0);
+});
+function doSubmit(thisForm){
+	var loginNo = document.getElementById("loginNo").value;
+	var loginPwd = document.getElementById("loginPwd").value;
+	if(loginNo==""){
+		alert("请输入用户名！");
+		return false;
+	}
+	if(loginPwd==""){
+		alert("请输入登录密码！");
+		return false;
+	}
+	if(!haveSpe(loginNo)){
+		alert("请输入合法的用户名！");
+		return  false;
+	}
+	if(!haveSpe(loginPwd)){
+		alert("请输入合法的登录密码！");
+		return  false;
+	}
+	
+	thisForm.btn1.disabled=true;
+	thisForm.submit();
+}
+
+function haveSpe(str){
+  var comp="\\/><\'\"&#";
+  var aChar="";
+  for(var i=0;i<str.length;i++)
+  {
+	aChar=str.charAt(i);  
+	if(comp.indexOf(aChar)!=-1)
+		return false;
+  }
+  return true;
+}
+	  
+</script>
+</head>
+<body id="login_body">
+<form name="frm" action="/rom/login.do" method="post">
+<div class="redtree">
+ <div class="login_wiap">
+  <div class="login_logo"></div>
+  <div class="blankH34"></div>
+  <div class="login_mian">
+    <ul>
+      <li class="name">
+        <span><input name="loginNo" id="loginNo" type="text" value="请输入用户名" onfocus="if (value =='请输入用户名'){value =''}" onblur="if (value ==''){value='请输入用户名'}"/></span>
+      </li>
+      <li class="pwd">
+        <span><input name="loginPwd" id="loginPwd" type="text" value="请输入登陆密码" onfocus="if (value =='请输入登陆密码'){value ='',type='password'}" onblur="if (value ==''){value='请输入登陆密码',type='text'}" /></span>
+      </li>
+      <li class="sub">
+        <input name="btn1" id="btn1" type="button" onclick="doSubmit(document.frm)" />
+      </li>
+    </ul>
+  </div>
+ </div>
+</div>
+</form>
+</body>
+</html>
