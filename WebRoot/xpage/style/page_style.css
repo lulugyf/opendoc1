@@ -707,7 +707,7 @@ font-family::"Microsoft YaHei", "微软雅黑", "SimSun", "宋体";
 	background:url(../images/book2.png) no-repeat 100px center #d8e5ff;
 }
 
-.cs_menu ul li ul li span .m_title .ico{
+.fancytree-title .ico{
 	position:absolute;
 	right:20px;
 	top:0;
@@ -716,13 +716,13 @@ font-family::"Microsoft YaHei", "微软雅黑", "SimSun", "宋体";
 	color:#5772a4;
 	display:none;
 }
-.cs_menu ul li ul li span .m_title .ico a{
+.fancytree-title .ico a{
 	color:#5772a4;
 }
-.cs_menu ul li ul li span .m_title .ico a:hover{
+.fancytree-title .ico a:hover{
 	color:#F00;
 }
-.cs_menu ul li ul li span .m_title .ico .btn1,.cs_menu ul li ul li span .m_title .ico .btn2,.cs_menu ul li ul li span .m_title .ico .btn3{
+.fancytree-title .ico .btn1,.fancytree-title .ico .btn2,.fancytree-title .ico .btn3{
 	width:auto;
 	height:30px;
 	line-height:30px;
@@ -732,13 +732,13 @@ font-family::"Microsoft YaHei", "微软雅黑", "SimSun", "宋体";
 	margin-left:20px;
 	text-indent:24px;
 }
-.cs_menu ul li ul li span .m_title .ico .btn1{
+.fancytree-title .ico .btn1{
 	background:url(../images/bbpz_ico1.png) no-repeat left center;
 }
-.cs_menu ul li ul li span .m_title .ico .btn2{
+.fancytree-title .ico .btn2{
 	background:url(../images/bbpz_ico2.png) no-repeat left center;
 }
-.cs_menu ul li ul li span .m_title .ico .btn3{
+.fancytree-title .ico .btn3{
 	background:url(../images/bbpz_ico3.png) no-repeat left center;
 }
 
@@ -747,4 +747,11 @@ font-family::"Microsoft YaHei", "微软雅黑", "SimSun", "宋体";
 	overflow-y:scroll;
 	overflow-x:hidden;
 	background:url(../images/pz_menu_bg.png) repeat-x top center #eef3ff;
+}
+
+.cs_form_div{
+	overflow-y:scroll;
+	overflow-x:hidden;
+	background:url(../images/pz_menu_bg.png) repeat-x top center #eef3ff;
+
 }
